@@ -3,5 +3,5 @@ from course.models import Course
 # Register your models here.
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'description', 'capacity')
+    list_display = ('id','name')
     search_fields = ('name',)
