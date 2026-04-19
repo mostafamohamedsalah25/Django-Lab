@@ -1,0 +1,21 @@
+{% extends 'parent.html' %}
+
+{% block title %}Trainee Details{% endblock %}
+
+{% block content %}
+    <h3>Trainee Profile</h3>
+    
+    <div style="border: 1px solid #ccc; padding: 20px; max-width: 400px;">
+        <p><strong>ID:</strong> {{ trainee.id }}</p>
+        <p><strong>First Name:</strong> {{ trainee.first_name }}</p>
+        <p><strong>Last Name:</strong> {{ trainee.last_name }}</p>
+        <p><strong>Email:</strong> {{ trainee.email }}</p>
+        <p><strong>Track:</strong> {{ trainee.track }}</p>
+        <p><strong>Branch:</strong> {{ trainee.branch }}</p>
+        <p><strong>Enrolled Course:</strong> {{ trainee.course.name }}</p>
+    </div>
+    
+    <br>
+    <a href="{% url 'update_trainee' trainee.id %}">Edit Trainee</a> |
+    <a href="{% url 'trainee_list' %}">Back to List</a>
+{% endblock %}

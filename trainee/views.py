@@ -36,3 +36,10 @@ def update_trainee(request, id):
 
     context = {'form': form, 'trainee': trainee}
     return render(request, 'trainee/update.html', context)
+
+
+def trainee_detail(request, id):
+    trainee = get_object_or_404(Trainee, id=id)
+
+    context = {'trainee': trainee}
+    return render(request, 'trainee/traineedetail.html', context)
