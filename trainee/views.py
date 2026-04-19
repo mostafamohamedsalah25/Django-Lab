@@ -1,5 +1,5 @@
 from urllib import request
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import TraineeForm
 import trainee
 from .models import Trainee
@@ -21,3 +21,18 @@ def add_trainee(request):
 
     context = {'form': form}
     return render(request, 'trainee/addtrainee.html', context)
+
+
+def update_trainee(request, id):
+    trainee = get_object_or_404(Trainee, id=id)
+
+    if request.method == 'POST':
+        form = TraineeForm(request.POST, instance=trainee)
+        if form.is_valid():
+            form.save()
+            return redirect('trainee_list')
+    else:
+        form = TraineeForm(instance=trainee)
+
+    context = {'form': form, 'trainee': trainee}
+    return render(request, 'trainee/update.html', context)

@@ -14,6 +14,7 @@
                 <th>Track</th>
                 <th>Branch</th>
                 <th>Course</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,9 @@
                     <td>{{ trainee.track }}</td>
                     <td>{{ trainee.branch }}</td>
                     <td>{{ trainee.course.name }}</td>
+                    <td>
+                        <a href="{% url 'update_trainee' trainee.id %}">Edit</a>
+                    </td>
                 </tr>
             {% empty %}
                 <tr>
