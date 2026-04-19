@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'parent.html' %}
 
-</body>
-</html>
+{% block title %}Confirm Deletion{% endblock %}
+
+{% block content %}
+    <h3 style="color: red;">Delete Trainee</h3>
+    
+    <p>Are you absolutely sure you want to delete the trainee <strong>{{ trainee.first_name }} {{ trainee.last_name }}</strong>?</p>
+    <p>This action cannot be undone.</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" style="color: white; background-color: red;">Yes, I am sure</button>
+        <a href="{% url 'trainee_list' %}">No, take me back</a>
+    </form>
+{% endblock %}

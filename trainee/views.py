@@ -43,3 +43,14 @@ def trainee_detail(request, id):
 
     context = {'trainee': trainee}
     return render(request, 'trainee/traineedetail.html', context)
+
+
+def delete_trainee(request, id):
+    trainee = get_object_or_404(Trainee, id=id)
+
+    if request.method == 'POST':
+        trainee.delete()
+        return redirect('trainee_list')
+
+    context = {'trainee': trainee}
+    return render(request, 'trainee/delete.html', context)
