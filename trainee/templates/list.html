@@ -1,0 +1,36 @@
+{% extends 'parent.html' %}
+
+{% block title %}Trainees List{% endblock %}
+
+{% block content %}
+    <h3>All Trainees</h3>
+    
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Track</th>
+                <th>Branch</th>
+                <th>Course</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trainee in trainees %}
+                <tr>
+                    <td>{{ trainee.id }}</td>
+                    <td>{{ trainee.first_name }} {{ trainee.last_name }}</td>
+                    <td>{{ trainee.email }}</td>
+                    <td>{{ trainee.track }}</td>
+                    <td>{{ trainee.branch }}</td>
+                    <td>{{ trainee.course.name }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">No trainees found in the database.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
