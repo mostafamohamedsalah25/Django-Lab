@@ -3,19 +3,57 @@
 {% block title %}Trainee Details{% endblock %}
 
 {% block content %}
-    <h3>Trainee Profile</h3>
-    
-    <div style="border: 1px solid #ccc; padding: 20px; max-width: 400px;">
-        <p><strong>ID:</strong> {{ trainee.id }}</p>
-        <p><strong>First Name:</strong> {{ trainee.first_name }}</p>
-        <p><strong>Last Name:</strong> {{ trainee.last_name }}</p>
-        <p><strong>Email:</strong> {{ trainee.email }}</p>
-        <p><strong>Track:</strong> {{ trainee.track }}</p>
-        <p><strong>Branch:</strong> {{ trainee.branch }}</p>
-        <p><strong>Enrolled Course:</strong> {{ trainee.course.name }}</p>
+    <div class="mx-auto max-w-4xl rounded-3xl border border-gray-800 bg-gray-800/60 p-8 shadow-xl shadow-black/20">
+        <div class="mb-8 flex flex-col gap-4 border-b border-gray-700 pb-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <p class="text-sm uppercase tracking-[0.25em] text-cyan-400">Profile</p>
+                <h2 class="mt-2 text-3xl font-semibold text-white">{{ trainee.first_name }} {{ trainee.last_name }}</h2>
+            </div>
+            <span class="rounded-full border border-gray-700 bg-gray-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-gray-300">ID {{ trainee.id }}</span>
+        </div>
+
+        <div class="flex flex-col gap-8 lg:flex-row lg:items-start">
+            <div class="flex-shrink-0">
+                {% if trainee.image %}
+                    <img src="{{ trainee.image.url }}" alt="Profile Picture" class="h-48 w-48 rounded-3xl border border-gray-700 object-cover shadow-lg shadow-black/30">
+                {% else %}
+                    <div class="flex h-48 w-48 items-center justify-center rounded-3xl border border-dashed border-gray-600 bg-gray-900 text-sm font-medium text-gray-500">
+                        No image
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="grid w-full gap-4 md:grid-cols-2">
+                <div class="rounded-2xl border border-gray-700 bg-gray-900 p-4">
+                    <p class="text-xs uppercase tracking-[0.2em] text-gray-500">First Name</p>
+                    <p class="mt-2 text-lg font-semibold text-white">{{ trainee.first_name }}</p>
+                </div>
+                <div class="rounded-2xl border border-gray-700 bg-gray-900 p-4">
+                    <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Last Name</p>
+                    <p class="mt-2 text-lg font-semibold text-white">{{ trainee.last_name }}</p>
+                </div>
+                <div class="rounded-2xl border border-gray-700 bg-gray-900 p-4 md:col-span-2">
+                    <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Email</p>
+                    <p class="mt-2 text-base font-medium text-gray-200">{{ trainee.email }}</p>
+                </div>
+                <div class="rounded-2xl border border-gray-700 bg-gray-900 p-4">
+                    <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Track</p>
+                    <span class="mt-2 inline-flex rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-sm font-semibold text-emerald-300">{{ trainee.track }}</span>
+                </div>
+                <div class="rounded-2xl border border-gray-700 bg-gray-900 p-4">
+                    <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Branch</p>
+                    <p class="mt-2 text-base font-medium text-gray-200">{{ trainee.branch }}</p>
+                </div>
+                <div class="rounded-2xl border border-cyan-500/20 bg-cyan-500/10 p-4 md:col-span-2">
+                    <p class="text-xs uppercase tracking-[0.2em] text-cyan-300">Enrolled Course</p>
+                    <p class="mt-2 text-lg font-semibold text-white">{{ trainee.course.name }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 flex flex-col gap-3 border-t border-gray-700 pt-6 sm:flex-row">
+            <a href="{% url 'update_trainee' trainee.id %}" class="rounded-full bg-amber-400 px-5 py-3 text-center text-sm font-semibold text-gray-950 transition hover:bg-amber-300">Edit profile</a>
+            <a href="{% url 'trainee_list' %}" class="rounded-full border border-gray-700 px-5 py-3 text-center text-sm font-semibold text-gray-200 transition hover:border-cyan-400 hover:text-cyan-300">Back to list</a>
+        </div>
     </div>
-    
-    <br>
-    <a href="{% url 'update_trainee' trainee.id %}">Edit Trainee</a> |
-    <a href="{% url 'trainee_list' %}">Back to List</a>
 {% endblock %}

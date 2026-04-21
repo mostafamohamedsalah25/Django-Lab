@@ -1,56 +1,38 @@
-from urllib import request
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, UpdateView
+
 from .forms import TraineeForm
-import trainee
 from .models import Trainee
-# Create your views here.
+
+
 def trainee_list(request):
     trainees = Trainee.objects.all()
     context = {'trainees': trainees}
     return render(request, 'trainee/list.html', context)
 
-def add_trainee(request):
-    if request.method == 'POST':
-        form = TraineeForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('trainee_list')
-    else:
-        form = TraineeForm()
-
-    context = {'form': form}
-    return render(request, 'trainee/addtrainee.html', context)
-
-
-def update_trainee(request, id):
-    trainee = get_object_or_404(Trainee, id=id)
-
-    if request.method == 'POST':
-        form = TraineeForm(request.POST, instance=trainee)
-        if form.is_valid():
-            form.save()
-            return redirect('trainee_list')
-    else:
-        form = TraineeForm(instance=trainee)
-
-    context = {'form': form, 'trainee': trainee}
-    return render(request, 'trainee/update.html', context)
-
 
 def trainee_detail(request, id):
     trainee = get_object_or_404(Trainee, id=id)
-
     context = {'trainee': trainee}
     return render(request, 'trainee/traineedetail.html', context)
 
 
-def delete_trainee(request, id):
-    trainee = get_object_or_404(Trainee, id=id)
+class TraineeCreateView(CreateView):
+    model = Trainee
+    form_class = TraineeForm
+    template_name = 'trainee/addtrainee.html'
+    success_url = reverse_lazy('trainee_list')
 
-    if request.method == 'POST':
-        trainee.delete()
-        return redirect('trainee_list')
 
-    context = {'trainee': trainee}
-    return render(request, 'trainee/delete.html', context)
+class TraineeUpdateView(UpdateView):
+    model = Trainee
+    form_class = TraineeForm
+    template_name = 'trainee/update.html'
+    success_url = reverse_lazy('trainee_list')
+
+
+class TraineeDelete(DeleteView):
+    model = Trainee
+    template_name = 'trainee/delete.html'
+    success_url = reverse_lazy('trainee_list')

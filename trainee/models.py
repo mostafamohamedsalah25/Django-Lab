@@ -9,4 +9,5 @@ class Trainee(models.Model):
     track = models.CharField(max_length=100, default='Open Source')
     branch = models.CharField(max_length=50, default='Assiut')
 
+    image = models.ImageField(upload_to='trainees/images/', null=True, blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='trainees')

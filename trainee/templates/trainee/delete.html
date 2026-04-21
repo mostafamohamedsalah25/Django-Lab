@@ -3,14 +3,22 @@
 {% block title %}Confirm Deletion{% endblock %}
 
 {% block content %}
-    <h3 style="color: red;">Delete Trainee</h3>
-    
-    <p>Are you absolutely sure you want to delete the trainee <strong>{{ trainee.first_name }} {{ trainee.last_name }}</strong>?</p>
-    <p>This action cannot be undone.</p>
-    
-    <form method="POST">
-        {% csrf_token %}
-        <button type="submit" style="color: white; background-color: red;">Yes, I am sure</button>
-        <a href="{% url 'trainee_list' %}">No, take me back</a>
-    </form>
+    <div class="mx-auto mt-10 max-w-xl rounded-3xl border border-red-500/20 bg-gray-800/70 p-8 text-center shadow-xl shadow-black/30">
+        <div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-red-500/30 bg-red-500/10">
+            <svg class="h-8 w-8 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        </div>
+
+        <h2 class="text-3xl font-semibold text-white">Delete trainee?</h2>
+
+        <div class="mb-8 mt-4 text-gray-300">
+            <p class="mb-3">You are about to permanently remove <strong class="text-white">{{ trainee.first_name }} {{ trainee.last_name }}</strong> from the trainee roster.</p>
+            <p class="rounded-2xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-200">This action cannot be undone and the trainee profile will be deleted immediately.</p>
+        </div>
+
+        <form method="POST" class="flex flex-col justify-center gap-3 sm:flex-row">
+            {% csrf_token %}
+            <a href="{% url 'trainee_list' %}" class="w-full rounded-full border border-gray-700 px-6 py-3 text-sm font-semibold text-gray-200 transition hover:border-cyan-400 hover:text-cyan-300 sm:w-auto">Cancel</a>
+            <button type="submit" class="w-full rounded-full bg-red-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-red-400 sm:w-auto">Confirm delete</button>
+        </form>
+    </div>
 {% endblock %}
