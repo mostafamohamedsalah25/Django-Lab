@@ -61,7 +61,7 @@ class TraineeUpdateAPI(APIView):
 
         serializer = TraineeSerializer(trainee)
         return Response(serializer.data)
-    
+
     def put(self, request, pk, format=None):
         try:
             trainee = Trainee.objects.get(pk=pk)
